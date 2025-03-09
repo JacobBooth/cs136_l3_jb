@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define MAX_SIZE 100  // Define the maximum size of the stack
+#define MAX_SIZE 100  
 
 // Declare function prototypes 
 bool isBalanced(const string &expression);
@@ -29,9 +29,9 @@ int main() {
         if (choice == 1) {
             cout << "Enter filename: ";
             cin >> filename;
-            processExpressions(filename);  // Call function to process file
+            processExpressions(filename); 
         }
-    } while (choice != 2);  // Loop until user chooses to quit
+    } while (choice != 2);  
     
     cout << "Goodbye!\n";
     return 0;
@@ -40,20 +40,20 @@ int main() {
 // Define a Stack class (array-based implementation)
 class Stack {
     private:
-        char arr[MAX_SIZE];  // Array to hold stack elements
-        int top;  // Index of the top element
+        char arr[MAX_SIZE];  
+        int top; 
     public:
-        Stack() : top(-1) {}  // Constructor initializes top to -1 (empty stack)
-        bool isEmpty() { return top == -1; }  // Check if stack is empty
-        bool isFull() { return top == MAX_SIZE - 1; }  // Check if stack is full
-        void push(char ch) { if (!isFull()) arr[++top] = ch; }  // Push element onto stack
-        char pop() { return isEmpty() ? '\0' : arr[top--]; }  // Pop element from stack
-        char peek() { return isEmpty() ? '\0' : arr[top]; }  // Peek at the top element
+        Stack() : top(-1) {} 
+        bool isEmpty() { return top == -1; } 
+        bool isFull() { return top == MAX_SIZE - 1; } 
+        void push(char ch) { if (!isFull()) arr[++top] = ch; }  
+        char pop() { return isEmpty() ? '\0' : arr[top--]; }  
+        char peek() { return isEmpty() ? '\0' : arr[top]; } 
     };
     
 // Function to check if an expression is balanced
 bool isBalanced(const string &expression) {
-    Stack stack;  // Create a stack instance
+    Stack stack;  
     for (size_t i = 0; i < expression.length(); i++) {
         char ch = expression[i];
         
@@ -61,13 +61,13 @@ bool isBalanced(const string &expression) {
             stack.push(ch);
         
         else if (ch == ')' || ch == '}' || ch == ']') {
-            if (stack.isEmpty()) return false;  // Stack should not be empty
-            char top = stack.pop();  // Pop the top element
+            if (stack.isEmpty()) return false;  
+            char top = stack.pop();  
             if ((ch == ')' && top != '(') || (ch == '}' && top != '{') || (ch == ']' && top != '['))
-                return false;  // Mismatched symbols
+                return false;  
         }
     }
-    return stack.isEmpty();  // Stack should be empty if balanced
+    return stack.isEmpty();  
 }
 
 // Function to extract only opening and closing symbols
@@ -75,14 +75,14 @@ string extractSymbols(const string &expression) {
     string result;
     for (char ch : expression) {
         if (ch == '(' || ch == ')' || ch == '{' || ch == '}' || ch == '[' || ch == ']')
-            result += ch;  // Append only bracket symbols
+            result += ch;  
     }
     return result;
 }
 
 // Function to process expressions from a file
 void processExpressions(const string &filename) {
-    ifstream file(filename);  // Open the file
+    ifstream file(filename); 
     if (!file) {
         cout << "Error: Could not open file." << endl;
         return;
@@ -93,16 +93,16 @@ void processExpressions(const string &filename) {
     cout << string(75, '-') << endl;
     
     string expression;
-    while (getline(file, expression)) {  // Read each line from the file
-        if (expression.length() > 60) {  // Check length constraint
+    while (getline(file, expression)) {  
+        if (expression.length() > 60) {  
             cout << left << setw(30) << "ERROR: Too long" << setw(30) << "" << setw(15) << "NO" << endl;
             continue;
         }
-        string symbols = extractSymbols(expression);  // Extract only brackets
-        bool balanced = isBalanced(expression);  // Check if balanced
+        string symbols = extractSymbols(expression);  
+        bool balanced = isBalanced(expression);  
         cout << left << setw(30) << expression << setw(30) << symbols << setw(15) << (balanced ? "YES" : "NO") << endl;
     }
-    file.close();  // Close the file
+    file.close();  
 }
 
 /*

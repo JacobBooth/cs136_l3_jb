@@ -1,0 +1,9 @@
+(a + b) * {c / [d - e]}  
+( { [ ] } )              
+( { [ } ] )              
+"Hello" + 'A'            
+<!-- This is a comment -->  
+(a + b) * { c / [ d - e ]   
+/* Valid comment */        
+/* Unfinished comment      
+( "string" + 'x' )       
